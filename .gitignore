@@ -1,0 +1,10 @@
+TensorFlow/models/
+
+*.data*
+*.index
+*.meta
+*.config
+*.pb
+*.pbtxt
+*.jpg
+*.xml

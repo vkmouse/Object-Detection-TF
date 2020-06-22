@@ -26,7 +26,7 @@ from collections import namedtuple, OrderedDict
 flags = tf.app.flags
 flags.DEFINE_string('csv_input', '', 'Path to the CSV input')
 flags.DEFINE_string('output_path', '', 'Path to output TFRecord')
-flags.DEFINE_string('label', '', 'Name of class label')
+flags.DEFINE_string('labels_path', '', 'Name of class label')
 # if your image has more labels input them as
 # flags.DEFINE_string('label0', '', 'Name of class[0] label')
 # flags.DEFINE_string('label1', '', 'Name of class[1] label')
@@ -34,12 +34,16 @@ flags.DEFINE_string('label', '', 'Name of class label')
 flags.DEFINE_string('img_path', '', 'Path to images')
 FLAGS = flags.FLAGS
 
+classes = []
+with open(FLAGS.labels_path, 'r') as file:
+    classes = file.readlines()
 
 # TO-DO replace this with label map
 # for multiple labels add more else if statements
 def class_text_to_int(row_label):
-    if row_label == FLAGS.label:  # 'ship':
-        return 1
+    for i in range(len(classes)):
+        if row_label == classes[i]:  # 'ship':
+            return i + 1
     # comment upper if statement and uncomment these statements for multiple labelling
     # if row_label == FLAGS.label0:
     #   return 1
